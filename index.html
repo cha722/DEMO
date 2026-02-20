@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المركز الصحي العام – دار الفتوى – عكار سماق</title>
+    <!-- Cairo font (clean, modern Arabic) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: #f9fbfd;
+            color: #1e2b3a;
+            line-height: 1.6;
+        }
+
+        /* teal / medical blue palette */
+        :root {
+            --primary: #008080;      /* teal */
+            --primary-light: #e0f0f0;
+            --primary-soft: #b3d9d9;
+            --accent: #006064;
+            --shadow: 0 10px 25px -5px rgba(0, 128, 128, 0.1), 0 8px 10px -6px rgba(0,0,0,0.02);
+            --card-shadow: 0 10px 20px -5px rgba(0,80,80,0.08), 0 6px 8px -4px rgba(0,0,0,0.02);
+            --white: #ffffff;
+            --gray-bg: #f2f7fa;
+        }
+
+        /* RTL layout */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* sticky navigation */
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: var(--white);
+            box-shadow: 0 4px 12px rgba(0,100,100,0.05);
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            padding: 16px 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-bar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #1e2b3a;
+            padding: 6px 12px;
+            border-radius: 30px;
+            transition: all 0.2s;
+            font-size: 1.1rem;
+        }
+
+        .nav-bar a:hover, .nav-bar a.active {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* logo area */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            padding: 30px 0 10px;
+        }
+        .logo-img {
+            max-height: 110px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0,100,100,0.15));
+            border-radius: 20px;
+            transition: transform 0.3s;
+        }
+        .logo-img:hover { transform: scale(1.02); }
+
+        /* cards & buttons */
+        .card {
+            background: var(--white);
+            border-radius: 28px;
+            padding: 24px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.2s ease;
+            border: 1px solid rgba(0,128,128,0.05);
+        }
+        .card:hover {
+            box-shadow: 0 20px 30px -10px rgba(0,128,128,0.15);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.15s;
+            box-shadow: 0 6px 14px rgba(0,128,128,0.3);
+            text-decoration: none;
+            border: 1px solid transparent;
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            box-shadow: none;
+        }
+        .btn-outline:hover {
+            background: var(--primary-light);
+        }
+        .btn:hover {
+            background-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px -8px #00808060;
+        }
+
+        .emergency-banner {
+            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 50px;
+            text-align: center;
+            margin: 30px 0;
+            box-shadow: 0 16px 30px -8px #b71c1c80;
+        }
+        .emergency-banner i { font-size: 2.2rem; margin-left: 12px; vertical-align: middle; }
+        .emergency-banner span { font-size: 2rem; font-weight: 700; letter-spacing: 2px; }
+
+        /* page sections */
+        .page { display: none; }
+        .page.active-page { display: block; }
+
+        /* quick grid */
+        .grid-3, .grid-4, .grid-2 {
+            display: grid;
+            gap: 24px;
+            margin: 30px 0;
+        }
+        .grid-3 { grid-template-columns: repeat(3,1fr); }
+        .grid-4 { grid-template-columns: repeat(4,1fr); }
+        .grid-2 { grid-template-columns: repeat(2,1fr); }
+
+        @media (max-width: 900px) {
+            .grid-3, .grid-4 { grid-template-columns: repeat(2,1fr); }
+        }
+        @media (max-width: 600px) {
+            .grid-3, .grid-4, .grid-2 { grid-template-columns: 1fr; }
+            .nav-bar { gap: 12px; }
+        }
+
+        .service-icon, .doctor-icon {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .footer {
+            background: var(--white);
+            margin-top: 60px;
+            padding: 40px 0;
+            border-radius: 60px 60px 0 0;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.02);
+            border-top: 2px solid var(--primary-light);
+        }
+
+        /* form styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+            color: #004d4d;
+        }
+        .form-control {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 40px;
+            border: 1px solid #c0d6d6;
+            font-size: 1rem;
+            background: white;
+            transition: 0.2s;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px #b3d9d9;
+        }
+        .booking-message {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        .msg-success { background: #d4edda; color: #0e5c3f; border: 1px solid #6ecf8d; }
+        .msg-error { background: #f8d7da; color: #a1222f; border: 1px solid #f1aeb5; }
+
+        /* admin table */
+        .admin-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 12px;
+        }
+        .admin-table th, .admin-table td {
+            padding: 16px 12px;
+            background: white;
+            border-radius: 24px;
+            text-align: center;
+        }
+        .admin-table th { background: var(--primary-light); color: #006363; font-weight: 700; border-radius: 30px; }
+        .status-badge {
+            padding: 6px 18px;
+            border-radius: 60px;
+            font-weight: 600;
+            background: #f3f6f9;
+        }
+        .status-confirmed { background: #d4edda; color: #0b5e42; }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-cancelled { background: #f1b0b0; color: #7c2c2c; }
+
+        .small-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 4px;
+        }
+        .small-btn.cancel { background: #aa3e3e; }
+        .small-btn.cancel:hover { background: #942f2f; }
+        .small-btn:hover { opacity: 0.9; }
+
+        /* hidden admin login */
+        #admin-section:not(.hidden) { display: block; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<!-- Logo top center -->
+<div class="container logo-container">
+    <!-- Using the provided logo pic1.png (displayed via placeholder) -->
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='100' viewBox='0 0 280 100'%3E%3Crect width='280' height='100' fill='%23008080' rx='30'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='Cairo' font-size='24' font-weight='bold'%3Eدار الفتوى%3C/text%3E%3Ctext x='50%25' y='75%25' dominant-baseline='middle' text-anchor='middle' fill='%23e0f0f0' font-size='18'%3Eالمركز الصحي العام%3C/text%3E%3C/svg%3E"
+         alt="شعار المركز الصحي - دار الفتوى" class="logo-img">
+    <!-- note: actual pic1.png would replace src; using embedded vector as demo for logo -->
+</div>
+
+<!-- Sticky navigation bar -->
+<div class="sticky-nav">
+    <div class="container nav-bar">
+        <a href="#" data-page="home" class="active">الرئيسية</a>
+        <a href="#" data-page="about">من نحن</a>
+        <a href="#" data-page="services">الخدمات</a>
+        <a href="#" data-page="doctors">الأطباء</a>
+        <a href="#" data-page="booking">حجز موعد</a>
+        <a href="#" data-page="admin">الإدارة</a>
+    </div>
+</div>
+
+<!-- main content: pages container -->
+<div class="container" style="margin-top: 32px;">
+
+    <!-- 1️⃣ HOME PAGE -->
+    <div id="home" class="page active-page">
+        <div class="emergency-banner">
+            <i class="fas fa-phone-alt"></i>
+            <span>طوارئ 24/7: 1999</span>
+        </div>
+
+        <!-- welcome message & buttons -->
+        <div class="card" style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: var(--primary); font-size: 2.4rem;">المركز الصحي العام – دار الفتوى</h1>
+            <p style="font-size: 1.3rem;">عكار سماق: صحتك أمانتنا</p>
+            <div style="display: flex; gap: 16px; justify-content: center; margin: 30px 0 20px; flex-wrap: wrap;">
+                <a href="#" data-page="booking" class="btn">حجز موعد</a>
+                <a href="#" data-page="services" class="btn btn-outline">خدماتنا</a>
+                <a href="#" class="btn btn-outline">تواصل معنا</a>
+            </div>
+        </div>
+
+        <!-- opening hours + quick services preview -->
+        <div class="grid-2">
+            <div class="card">
+                <i class="fas fa-clock service-icon" style="font-size: 2rem;"></i>
+                <h2>ساعات العمل</h2>
+                <ul style="list-style: none; font-size: 1.2rem; line-height: 2.4;">
+                    <li>السبت - الخميس: 8:00 ص – 10:00 م</li>
+                    <li>الجمعة: 2:00 م – 8:00 م</li>
+                    <li>الطوارئ: على مدار الساعة</li>
+                </ul>
+            </div>
+            <div class="card">
+                <i class="fas fa-stethoscope service-icon"></i>
+                <h2>خدمات سريعة</h2>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px;">
+                    <span class="btn-outline" style="padding: 6px 16px; border-radius: 40px;">طب عام</span>
+                    <span class="btn-outline" style="padding: 6px 16px; border-radius: 40px;">مختبر</span>
+                    <span class="btn-outline" style="padding: 6px 16px; border-radius: 40px;">صيدلية</span>
+                    <span class="btn-outline" style="padding: 6px 16px; border-radius: 40px;">لقاحات</span>
+                </div>
+                <p style="margin-top: 20px;">خدمات شاملة بجودة عالية</p>
+            </div>
+        </div>
+
+        <!-- footer placeholder inside home -->
+        <div class="footer">
+            <div class="grid-3">
+                <div><i class="fas fa-map-marker-alt"></i> عكار سماق – شارع دار الفتوى</div>
+                <div><i class="fas fa-phone"></i> 06-1234567</div>
+                <div><i class="fas fa-map"></i> خريطة الموقع: <button class="btn-outline" style="padding: 4px 12px;">عرض على الخريطة</button></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2️⃣ ABOUT US PAGE -->
+    <div id="about" class="page">
+        <div class="card">
+            <h1>من نحن</h1>
+            <p style="font-size: 1.2rem;">المركز الصحي العام – دار الفتوى في عكار سماق هو صرح طبي رائد يقدم رعاية شاملة منذ ١٩٩٥. نضع المريض في قلب اهتمامنا.</p>
+        </div>
+        <div class="grid-2" style="margin-top: 30px;">
+            <div class="card">
+                <i class="fas fa-bullseye service-icon"></i>
+                <h2>رسالتنا</h2>
+                <p>توفير خدمات صحية آمنة وميسرة بكرامة واحترام.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-eye service-icon"></i>
+                <h2>رؤيتنا</h2>
+                <p>الريادة في طب المجتمع عبر الابتكار والشفافية.</p>
+            </div>
+        </div>
+        <div class="card" style="margin-top: 20px;">
+            <h2>دورنا في المجتمع</h2>
+            <p>نشارك في حملات التوعية واللقاحات ودعم الأسر. نعمل مع بلدية عكار سماق لتعزيز الصحة العامة.</p>
+            <div style="background: #d0e6e6; border-radius: 50px; padding: 40px; text-align: center; margin-top: 20px;">
+                <i class="fas fa-image" style="font-size: 3rem; opacity: 0.5;"></i> [صورةcommunity]
+            </div>
+        </div>
+    </div>
+
+    <!-- 3️⃣ SERVICES PAGE (cards) -->
+    <div id="services" class="page">
+        <h1 style="color: var(--primary);">خدماتنا الطبية</h1>
+        <div class="grid-3">
+            <div class="card"><i class="fas fa-user-md service-icon"></i><h3>طب عام</h3><p>كشف ومتابعة شاملة</p><button class="btn-outline" style="margin-top: 10px;">احجز الآن</button></div>
+            <div class="card"><i class="fas fa-child service-icon"></i><h3>طب أطفال</h3><p>رعاية الأطفال والرضع</p><button class="btn-outline">احجز الآن</button></div>
+            <div class="card"><i class="fas fa-syringe service-icon"></i><h3>لقاحات</h3><p>لقاحات وطنية وسفر</p><button class="btn-outline">احجز الآن</button></div>
+            <div class="card"><i class="fas fa-flask service-icon"></i><h3>مختبر</h3><p>تحاليل دقيقة</p><button class="btn-outline">احجز الآن</button></div>
+            <div class="card"><i class="fas fa-pills service-icon"></i><h3>صيدلية</h3><p>أدوية ومستلزمات</p><button class="btn-outline">احجز الآن</button></div>
+            <div class="card"><i class="fas fa-ambulance service-icon"></i><h3>طوارئ</h3><p>خدمة إسعاف 24/7</p><button class="btn-outline">احجز الآن</button></div>
+        </div>
+    </div>
+
+    <!-- 4️⃣ DOCTORS PAGE -->
+    <div id="doctors" class="page">
+        <h1>أطباؤنا المتميزون</h1>
+        <div class="grid-3">
+            <div class="card"><i class="fas fa-user-circle doctor-icon"></i><h3>د. أحمد الخطيب</h3><p>اختصاص طب عام</p><span>السبت، الاثنين، الأربعاء 9-1</span></div>
+            <div class="card"><i class="fas fa-user-md doctor-icon"></i><h3>د. سعاد منصور</h3><p>طب أطفال</p><span>الأحد، الثلاثاء، الخميس 10-2</span></div>
+            <div class="card"><i class="fas fa-user-nurse doctor-icon"></i><h3>د. خالد جابر</h3><p>طوارئ</p><span>يوميًا 4-10 عدا الجمعة</span></div>
+            <div class="card"><i class="fas fa-microscope doctor-icon"></i><h3>د. ليلى أحمد</h3><p>مختبر</p><span>أيام الأسبوع 8-3</span></div>
+        </div>
+    </div>
+
+    <!-- 5️⃣ APPOINTMENT BOOKING (with demo logic) -->
+    <div id="booking" class="page">
+        <div class="card">
+            <h2>حجز موعد</h2>
+            <div class="grid-2">
+                <div>
+                    <div class="form-group"><label>الاسم الكامل</label><input type="text" id="fullName" class="form-control" placeholder="مريم خالد"></div>
+                    <div class="form-group"><label>رقم الهاتف</label><input type="text" id="phone" class="form-control" placeholder="70 123 456"></div>
+                    <div class="form-group"><label>اختيار الخدمة</label><select id="serviceSelect" class="form-control"><option>طب عام</option><option>طب أطفال</option><option>لقاحات</option><option>مختبر</option></select></div>
+                    <div class="form-group"><label>اختيار الطبيب</label><select id="doctorSelect" class="form-control"><option>د. أحمد الخطيب</option><option>د. سعاد منصور</option><option>د. خالد جابر</option></select></div>
+                    <div class="form-group"><label>اختيار التاريخ</label><input type="date" id="datePick" class="form-control" value="2025-04-10"></div>
+                    <div class="form-group"><label>اختيار الوقت</label><input type="time" id="timePick" class="form-control" value="10:30"></div>
+                    <button id="bookBtn" class="btn" style="width: 100%;">حجز الموعد</button>
+                    <div id="bookingFeedback" class="booking-message" style="display: none;"></div>
+                </div>
+                <div style="background: #ecf7f7; border-radius: 40px; padding: 30px;"><i class="fas fa-calendar-check" style="font-size:5rem; opacity:0.4;"></i><p>تفاصيل الحجز: سيتم تأكيد رسالة نصية</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6️⃣ ADMIN PANEL (hidden route demo) -->
+    <div id="admin" class="page">
+        <div class="card" id="adminLoginCard">
+            <h2>دخول الإدارة</h2>
+            <div class="form-group"><label>المستخدم</label><input type="text" id="adminUser" class="form-control" value="admin"></div>
+            <div class="form-group"><label>كلمة المرور</label><input type="password" id="adminPass" class="form-control" value="1234"></div>
+            <button id="adminLoginBtn" class="btn">دخول</button>
+            <p style="color:red; display:none;" id="loginError">خطأ في البيانات</p>
+        </div>
+        <div id="adminPanel" class="hidden">
+            <h2>لوحة الإدارة – جدول المواعيد</h2>
+            <table class="admin-table" id="appointmentsTable">
+                <thead><tr><th>الاسم</th><th>الهاتف</th><th>الخدمة</th><th>الطبيب</th><th>التاريخ</th><th>الوقت</th><th>الحالة</th><th>إجراء</th></tr></thead>
+                <tbody id="appointmentsBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- demo data & logic -->
+<script>
+    (function() {
+        // ---------- DATA (simulated) ----------
+        let appointments = [
+            { name: 'سعاد عمار', phone: '71234567', service: 'طب عام', doctor: 'د. أحمد الخطيب', date: '2025-04-10', time: '10:30', status: 'Pending' },
+            { name: 'محمود كريم', phone: '76112233', service: 'طب أطفال', doctor: 'د. سعاد منصور', date: '2025-04-11', time: '11:00', status: 'Confirmed' },
+            { name: 'لينا حسن', phone: '70334455', service: 'لقاحات', doctor: 'د. خالد جابر', date: '2025-04-12', time: '12:15', status: 'Cancelled' }
+        ];
+
+        // ---------- Page navigation ----------
+        const pages = document.querySelectorAll('.page');
+        const navLinks = document.querySelectorAll('[data-page]');
+        function showPage(pageId) {
+            pages.forEach(p => p.classList.remove('active-page'));
+            const target = document.getElementById(pageId);
+            if (target) target.classList.add('active-page');
+            // update active nav
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.page === pageId) link.classList.add('active');
+            });
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.dataset.page;
+                showPage(page);
+                if (page === 'admin') { document.getElementById('adminPanel').classList.add('hidden'); document.getElementById('adminLoginCard').style.display = 'block'; }
+            });
+        });
+
+        // ---------- booking logic (demo) ----------
+        const bookedTimes = new Set(appointments.map(a => `${a.date}_${a.time}`));
+        const bookBtn = document.getElementById('bookBtn');
+        const feedbackDiv = document.getElementById('bookingFeedback');
+        bookBtn.addEventListener('click', function() {
+            const name = document.getElementById('fullName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const service = document.getElementById('serviceSelect').value;
+            const doctor = document.getElementById('doctorSelect').value;
+            const date = document.getElementById('datePick').value;
+            const time = document.getElementById('timePick').value;
+            if (!name || !phone || !date || !time) { alert('يرجى تعبئة جميع الحقول'); return; }
+
+            const slotKey = `${date}_${time}`;
+            feedbackDiv.style.display = 'block';
+
+            if (bookedTimes.has(slotKey)) {
+                feedbackDiv.className = 'booking-message msg-error';
+                feedbackDiv.innerHTML = '❌ هذا الموعد محجوز';
+            } else {
+                // add appointment (pending)
+                appointments.push({ name, phone, service, doctor, date, time, status: 'Pending' });
+                bookedTimes.add(slotKey);
+                feedbackDiv.className = 'booking-message msg-success';
+                feedbackDiv.innerHTML = '✅ تم حجز الموعد بنجاح (قيد الانتظار)';
+                // clear fields
+                document.getElementById('fullName').value = ''; document.getElementById('phone').value = '';
+            }
+        });
+
+        // ---------- Admin login & table ----------
+        const adminLoginBtn = document.getElementById('adminLoginBtn');
+        const loginCard = document.getElementById('adminLoginCard');
+        const adminPanel = document.getElementById('adminPanel');
+        const loginError = document.getElementById('loginError');
+
+        function renderAppointments() {
+            const tbody = document.getElementById('appointmentsBody');
+            tbody.innerHTML = '';
+            appointments.forEach((apt, index) => {
+                const tr = document.createElement('tr');
+                let statusClass = 'status-pending';
+                if (apt.status === 'Confirmed') statusClass = 'status-confirmed';
+                else if (apt.status === 'Cancelled') statusClass = 'status-cancelled';
+
+                tr.innerHTML = `
+                    <td>${apt.name}</td><td>${apt.phone}</td><td>${apt.service}</td><td>${apt.doctor}</td><td>${apt.date}</td><td>${apt.time}</td>
+                    <td><span class="status-badge ${statusClass}">${apt.status}</span></td>
+                    <td>
+                        <button class="small-btn" data-index="${index}" data-action="confirm">تأكيد</button>
+                        <button class="small-btn cancel" data-index="${index}" data-action="cancel">إلغاء</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // attach event listeners to buttons
+            document.querySelectorAll('[data-action="confirm"]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const idx = e.target.dataset.index;
+                    appointments[idx].status = 'Confirmed';
+                    renderAppointments();
+                });
+            });
+            document.querySelectorAll('[data-action="cancel"]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const idx = e.target.dataset.index;
+                    const apt = appointments[idx];
+                    // make time slot available again (remove from bookedTimes set)
+                    const slotKey = `${apt.date}_${apt.time}`;
+                    bookedTimes.delete(slotKey);
+                    // remove appointment or set cancelled? Here we set status Cancelled, and to free slot we just removed from set.
+                    // but we need to allow booking same slot again: done.
+                    appointments[idx].status = 'Cancelled';
+                    renderAppointments();
+                });
+            });
+        }
+
+        adminLoginBtn.addEventListener('click', () => {
+            const user = document.getElementById('adminUser').value;
+            const pass = document.getElementById('adminPass').value;
+            if (user === 'admin' && pass === '1234') {
+                loginCard.style.display = 'none';
+                adminPanel.classList.remove('hidden');
+                renderAppointments();
+                loginError.style.display = 'none';
+            } else {
+                loginError.style.display = 'block';
+            }
+        });
+
+        // prefill demo booking fields
+        document.getElementById('fullName').value = 'هالة محمود';
+        document.getElementById('phone').value = '70123456';
+
+        // show home by default
+        showPage('home');
+    })();
+</script>
+
+<!-- extra: smooth hover + hidden admin route works -->
+</body>
+</html>

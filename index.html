@@ -408,8 +408,6 @@
       <div class="card"><i class="fas fa-flask service-icon"></i><h3>مختبر</h3><p>تحاليل دقيقة</p></div>
       <div class="card"><i class="fas fa-pills service-icon"></i><h3>صيدلية</h3><p>صرف الأدوية والمستلزمات</p></div>
     </div>
-
-    <!-- footer (will be repeated across pages, but we place inside home only, but we want global footer once, so we'll put after container. Actually better to have one footer outside pages) -->
   </div>
 
   <!-- ABOUT US PAGE -->
@@ -456,40 +454,35 @@
     </div>
   </div>
 
-  <!-- DOCTORS PAGE -->
+  <!-- DOCTORS PAGE (updated names: د. حح, د. هه, د. اا, د. كك) -->
   <div id="doctors" class="page">
     <h2>الأطباء</h2>
     <div class="grid-3">
       <div class="card doctor-card">
         <div class="doc-img-placeholder"><i class="fas fa-user-md"></i></div>
-        <h3>د. أحمد فوزي</h3>
+        <h3>د. حح</h3>
         <p>اختصاص طب عام</p>
         <span>السبت – الأربعاء ٩-١</span>
       </div>
       <div class="card doctor-card">
         <div class="doc-img-placeholder"><i class="fas fa-user-nurse"></i></div>
-        <h3>د. ليلى هاشم</h3>
+        <h3>د. هه</h3>
         <p>طب أطفال</p>
         <span>الأحد، الثلاثاء، الخميس ١٠-٢</span>
       </div>
       <div class="card doctor-card">
         <div class="doc-img-placeholder"><i class="fas fa-user-md"></i></div>
-        <h3>د. خالد صالح</h3>
+        <h3>د. اا</h3>
         <p>اختصاص لقاحات</p>
         <span>الإثنين، الأربعاء ١١-٣</span>
       </div>
       <div class="card doctor-card">
         <div class="doc-img-placeholder"><i class="fas fa-microscope"></i></div>
-        <h3>د. سعاد منير</h3>
+        <h3>د. كك</h3>
         <p>مختبر</p>
         <span>يومياً ٨-٣</span>
       </div>
-      <div class="card doctor-card">
-        <div class="doc-img-placeholder"><i class="fas fa-pills"></i></div>
-        <h3>د. وليد حمدان</h3>
-        <p>صيدلية سريرية</p>
-        <span>السبت – الخميس ٩-٥</span>
-      </div>
+      <!-- We have only four doctors now, so the grid will show four. -->
     </div>
   </div>
 
@@ -502,7 +495,9 @@
           <div class="form-group"><label>الاسم الكامل</label><input type="text" id="fullName" class="form-control" placeholder="مثال: مريم علي"></div>
           <div class="form-group"><label>رقم الهاتف</label><input type="text" id="phone" class="form-control" placeholder="٧٠١٢٣٤٥٦"></div>
           <div class="form-group"><label>الخدمة</label><select id="serviceSelect" class="form-control"><option>طب عام</option><option>طب أطفال</option><option>لقاحات</option><option>مختبر</option><option>صيدلية</option></select></div>
-          <div class="form-group"><label>الطبيب</label><select id="doctorSelect" class="form-control"><option>د. أحمد فوزي</option><option>د. ليلى هاشم</option><option>د. خالد صالح</option><option>د. سعاد منير</option><option>د. وليد حمدان</option></select></div>
+          <div class="form-group"><label>الطبيب</label><select id="doctorSelect" class="form-control">
+            <option>د. حح</option><option>د. هه</option><option>د. اا</option><option>د. كك</option>
+          </select></div>
           <div class="form-group"><label>التاريخ</label><input type="date" id="datePick" class="form-control" value="2025-05-10"></div>
           <div class="form-group"><label>الوقت</label><input type="time" id="timePick" class="form-control" value="10:30"></div>
           <button id="bookBtn" class="btn" style="width:100%;">حجز</button>
@@ -555,10 +550,10 @@
     // ---------- localStorage key ----------
     const STORAGE_KEY = 'healthcenter_appointments';
 
-    // Load or init appointments (without any "طوارئ")
+    // Load or init appointments (without any "طوارئ") – using the new doctor names
     let appointments = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [
-      { name: 'سعاد محمد', phone: '70123456', service: 'طب عام', doctor: 'د. أحمد فوزي', date: '2025-05-10', time: '10:30', status: 'Pending' },
-      { name: 'محمود علي', phone: '76112233', service: 'طب أطفال', doctor: 'د. ليلى هاشم', date: '2025-05-11', time: '11:00', status: 'Confirmed' },
+      { name: 'سعاد محمد', phone: '70123456', service: 'طب عام', doctor: 'د. حح', date: '2025-05-10', time: '10:30', status: 'Pending' },
+      { name: 'محمود علي', phone: '76112233', service: 'طب أطفال', doctor: 'د. هه', date: '2025-05-11', time: '11:00', status: 'Confirmed' },
     ];
 
     function saveToStorage() {
@@ -710,6 +705,5 @@
     showPage('home');
   })();
 </script>
-<!-- no city name "عكار" appears anywhere -->
 </body>
 </html>
